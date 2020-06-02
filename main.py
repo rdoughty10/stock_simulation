@@ -36,7 +36,7 @@ print(df.tail(100))
 
 ax1 = plt.subplot2grid((10,1), (0,0), rowspan=5, colspan = 1)
 ax2 = plt.subplot2grid((10,1), (5, 0), rowspan=2, colspan = 1, sharex = ax1)
-ax3 = plt.subplot2grid((10, 1), (7, 0), rowspan=3, colspan= 1, sharex = ax1)
+ax3 = plt.subplot2grid((10,1), (7, 0), rowspan=3, colspan= 1, sharex = ax1)
 
 ax1.plot(df.index, df['Adj Close'])
 ax1.plot(df.index, df['100ma'])
@@ -46,5 +46,17 @@ ax3.plot(df.index, df['10dac'])
 
 #plt.show
 
+#STRATEGY 1: Long Term Buy: If the average change over long term is still positive, but the recent change is negative
+print("Strategy 1")
 times_to_buy = df.loc[(df['1000dac']>0) & (df['100dac'] < -0.2) & (df['10dac'] < -0.5)]
 print(times_to_buy)
+
+#Strategy 2: Buy if the stock falls below the 100 day moving average
+print("Strategy 2")
+difference = 20
+times_to_buy = df.loc[(df['100ma'] - df['Adj Close'] > difference)]
+print(times_to_buy)
+
+#challenge is to see who can create the largest % change given constant amt of money if you average out the 
+#loop through times_to_buy and 
+
